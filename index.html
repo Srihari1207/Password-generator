@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Passcode Generator</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: monospace;
+        }
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: black;
+        }
+        .container label{
+            font-size: 2em;
+        }
+        .container input{
+            padding: 10px;
+            font-size: 1.2em;
+        }
+        .container button{
+            padding: 5px 50px 5px 50px;
+            font-size: 2em;
+            background-color: red;
+            color: white;
+            border: none;
+            transition: 1s;
+            cursor: pointer;
+        }
+        .container button:hover{
+            border-radius: 30px;
+            background-color: yellow;
+            color: black;
+        }
+        #passcode{
+            color: #69b069;
+            font-size: 2em;
+            text-align: center;
+        }
+        .themecontainer {
+            background-color: black;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <label>PASSCODE SIZE:</label>
+        <input type="number" value="10" max="26" min="4" id="len">
+        <br>
+        <label>UPPERCASE:</label>
+        <input type="checkbox" checked id="upper">
+        <br>
+        <label>LOWERCASE:</label>
+        <input type="checkbox" checked id="lower">
+        <br>
+        <label>SPECIAL CHARACTERS:</label>
+        <input type="checkbox" checked id="spl">
+        <br>
+        <label>NUMBERS:</label>
+        <input type="checkbox" checked id="nums">
+        <br>
+        <br>
+        <button onclick="passcodeproduction()">GIVE PASSCODE</button>
+        <br>
+        <br>
+        <div id="passcode"></div>
+        <div class="themecontainer">
+            <button onclick="themechanger()">THEME</i></button>
+        </div>
+    </div>
+
+    <script>
+        function passcodeproduction(){
+            const len = document.getElementById('len').value;
+            const upper = document.getElementById('upper').checked;
+            const lower = document.getElementById('lower').checked;
+            const spl = document.getElementById('spl').checked;
+            const nums = document.getElementById('nums').checked;
+
+            const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+            const numbers = '1234567890';
+            const splChars = '!@#$%^&*()_+[]{}|;:,.<>?';      
+            
+            let userchars = '';
+            if (upper) userchars += uppercase;
+            if (lower) userchars += lowercase;
+            if (nums) userchars += numbers;
+            if (spl) userchars += splChars;
+
+            let passcode = '';
+            for( let x = 0; x < len; x++){
+                const random = Math.floor(Math.random()*userchars.length);
+                passcode += userchars.charAt(random);
+            }
+            document.getElementById('passcode').innerText = passcode;
+         }
+
+         function themechanger(){
+            var element = document.body;
+            element.classList.toggle("themecontainer");
+        }
+    </script>
+
+</body>
+</html>
